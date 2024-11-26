@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    gateway:
+      mvc:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=2
+        - id: oauthServer
+          uri: lb://oauthServer
+          predicates:
+            - Path=/api/security/**
+          filters:
+            - StripPrefix=2
