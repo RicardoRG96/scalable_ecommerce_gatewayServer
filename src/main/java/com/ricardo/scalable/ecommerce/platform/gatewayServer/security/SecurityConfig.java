@@ -13,23 +13,15 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityWebFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(authz -> {
             authz
                     .requestMatchers("/authorized", "/logout")
                     .permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/users/register")
+                    .requestMatchers(HttpMethod.POST, "/api/users")
                     .permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/users/register")
-                    .hasAnyRole()
-                    .requestMatchers(
-                            HttpMethod.GET,
-                            "/api/users/{id}",
-                            "/api/users/username/{username}",
-                            "/api/users/email/{email}",
-                            "/api/users"
-                    )
-                    .hasAnyRole("ADMIN", "SELLER")
+                    .permitAll()
                     .requestMatchers(
                             HttpMethod.PUT,
                             "/api/users/{id}",
@@ -37,22 +29,33 @@ public class SecurityConfig {
                     )
                     .hasAnyRole("ADMIN", "USER", "SELLER")
                     .requestMatchers(
+                            HttpMethod.GET,
+                            "/api/users/{id}",
+                            "/api/users/username/{username}",
+                            "/api/users/email/{email}",
+                            "/api/users"
+                    )
+                    .hasRole("ADMIN")
+                    .requestMatchers(
                             HttpMethod.PUT,
                             "/api/users/roles/{id}",
                             "/api/users/block/{id}",
                             "/api/users/unlock/{id}"
                     )
-                    .hasAnyRole("ADMIN")
+                    .hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/users/{id}")
-                    .hasAnyRole("ADMIN")
+                    .hasRole("ADMIN")
                     .anyRequest()
                     .authenticated();
-        }).cors(AbstractHttpConfigurer::disable)
+        }).csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // CAMBIAR ESTA CONFIG CUANDO TENGA EL SERVIDOR DE AUTORIZACION
                 .oauth2Login(Customizer.withDefaults())
                 .oauth2Client(Customizer.withDefaults())
-                .oauth2ResourceServer(Customizer.withDefaults())
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(
+                        Customizer.withDefaults()
+                ))
                 .build();
     }
 
