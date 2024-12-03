@@ -15,23 +15,25 @@ spring:
               - Path=/api/security/**
             filters:
               - StripPrefix=2
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://127.0.0.1:9100
-      client:
-        registration:
-          client-app:
-            provider: spring
-            client-id: ${CLIENT_ID}
-            client-secret: ${CLIENT_SECRET}
-            authorization-grant-type: authorization_code
-            redirect-uri: http://127.0.0.1:8090/authorized
-            scope:
-              - openid
-              - profile
-            client-name: client-app
-        provider:
-          spring:
-            issuer-uri: http://127.0.0.1:9100
+  # security:
+  #   oauth2:
+  #     resourceserver:
+  #       jwt:
+  #         issuer-uri: "http://127.0.0.1:9100"
+  #     client:
+  #       registration:
+  #         client-app:
+  #           provider: spring
+  #           #client-id: ${CLIENT_ID}
+  #           client-id: gateway-app
+  #           #client-secret: ${CLIENT_SECRET}
+  #           client-secret: mateo.2501
+  #           authorization-grant-type: authorization_code
+  #           redirect-uri: "http://127.0.0.1:8090/authorized"
+  #           scope:
+  #             - openid
+  #             - profile
+  #           client-name: client-app
+  #       provider:
+  #         spring:
+  #           issuer-uri: "http://127.0.0.1:9100"

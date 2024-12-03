@@ -1,8 +1,6 @@
 package com.ricardo.scalable.ecommerce.platform.gatewayServer.filters;
 
 import jakarta.servlet.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
@@ -21,4 +19,5 @@ public class GlobalFilter implements Filter, Ordered {
     public int getOrder() {
         return 100;
     }
+    
 }
