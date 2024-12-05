@@ -11,6 +11,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,6 +32,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class JwtValidationFilter extends BasicAuthenticationFilter {
+    
+    private Logger logger = LoggerFactory.getLogger(JwtValidationFilter.class);
 
     public JwtValidationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -73,7 +77,7 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
             );
 
             UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(username, authorities);
+                new UsernamePasswordAuthenticationToken(username, null, authorities);
 
             SecurityContextHolder
                 .getContext()
