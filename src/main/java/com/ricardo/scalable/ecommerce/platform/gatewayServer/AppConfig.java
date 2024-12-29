@@ -16,17 +16,6 @@ public class AppConfig {
         return WebClient.builder().baseUrl("http://user-service");
     }
 
-    // @Bean
-    // WebClient webClient(
-    //     WebClient.Builder builder,
-    //     ReactorLoadBalancerExchangeFilterFunction lbFunction
-    // ) {
-    //     return builder
-    //             .baseUrl("http://user-service")
-    //             .filter(lbFunction)
-    //             .build();
-    // }
-
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

@@ -35,24 +35,84 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/api/users/register")
                                 .permitAll()
                                 .requestMatchers(
-                                                HttpMethod.PUT,
-                                                "/api/users/{id}",
-                                                "/api/users/change-password/{id}")
+                                        HttpMethod.PUT,
+                                        "/api/users/{id}",
+                                        "/api/users/change-password/{id}"
+                                )
                                 .hasAnyRole("ADMIN", "USER", "SELLER")
                                 .requestMatchers(
-                                                HttpMethod.GET,
-                                                "/api/users/{id}",      
-                                                "/api/users/username/{username}",
-                                                "/api/users/email/{email}",
-                                                "/api/users")
+                                        HttpMethod.GET,
+                                        "/api/users/{id}",      
+                                        "/api/users/username/{username}",
+                                        "/api/users/email/{email}",
+                                        "/api/users"
+                                )
                                 .hasRole("ADMIN")
                                 .requestMatchers(
-                                                HttpMethod.PUT,
-                                                "/api/users/roles/{id}",
-                                                "/api/users/block/{id}",
-                                                "/api/users/unlock/{id}")
+                                        HttpMethod.PUT,
+                                        "/api/users/roles/{id}",
+                                        "/api/users/block/{id}",
+                                        "/api/users/unlock/{id}"
+                                )
                                 .hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/api/users/{id}")
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                         "/api/products", 
+                                         "/api/products/{id}"
+                                )
+                                .hasAnyRole("ADMIN", "USER", "SELLER")
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/products/name/{name}"
+                                )
+                                .hasAnyRole("ADMIN", "SELLER")
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/products/product-sku/{sku}"
+                                )
+                                .hasAnyRole("ADMIN", "SELLER")
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/products"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/products/{id}")
+                                .hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/products/{id}")
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/products/categories",
+                                        "/api/products/categories/{id}",
+                                        "/api/products/categories/name/{name}"
+                                )
+                                .hasAnyRole("ADMIN", "SELLER")
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/products/categories"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/products/categories/{id}")
+                                .hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/products/categories/{id}")
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/products/brands",
+                                        "/api/products/brands/{id}",
+                                        "/api/products/brands/name/{name}"
+                                )
+                                .hasAnyRole("ADMIN", "SELLER")
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/products/brands"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/products/brands/{id}")
+                                .hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/products/brands/{id}")
                                 .hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated();
