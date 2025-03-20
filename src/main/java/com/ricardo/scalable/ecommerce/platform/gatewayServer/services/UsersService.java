@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,11 +26,14 @@ public class UsersService implements UserDetailsService {
     @Autowired
     private WebClient.Builder client;
 
+    private final Logger logger = LoggerFactory.getLogger(UsersService.class);
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
+        logger.info(username);
 
         try {
             User user = client.build()
@@ -39,11 +44,16 @@ public class UsersService implements UserDetailsService {
                     .bodyToMono(User.class)
                     .block();
 
+            logger.info(user.getUsername());
+            logger.info(user.getPassword());
+
             List<GrantedAuthority> roles = user.getRoles()
                     .stream()
                     .map(role -> new SimpleGrantedAuthority(role.getName()))
                     .collect(Collectors.toList());
-
+            
+            logger.info(roles.get(0).getAuthority());
+                
             return 
                 new org.springframework.security.core.userdetails.User(
                     user.getUsername(),
