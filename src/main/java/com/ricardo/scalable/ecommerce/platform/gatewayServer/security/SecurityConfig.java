@@ -28,8 +28,6 @@ public class SecurityConfig {
         SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 return http.authorizeHttpRequests(authz -> {
                         authz
-                                .requestMatchers(HttpMethod.GET, "/authorized", "/logout")
-                                .permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/users")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/users/register")
