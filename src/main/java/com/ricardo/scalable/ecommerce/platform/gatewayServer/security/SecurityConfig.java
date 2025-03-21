@@ -298,6 +298,32 @@ public class SecurityConfig {
                                         "/api/products/discounts/{id}"
                                 )
                                 .hasRole("ADMIN")
+
+                                // PRODUCT GALLERY ROUTES
+                                .requestMatchers(
+                                        HttpMethod.GET, 
+                                        "/api/products/product-gallery/{id}",
+                                        "/api/products/product-gallery/product/{id}",
+                                        "/api/products/product-gallery/color-attribute/{id}",
+                                        "/api/products/product-gallery/product/{productId}/color-attribute/{colorAttributeId}",
+                                        "/api/products/product-gallery"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/products/product-gallery"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.PUT,
+                                        "/api/products/product-gallery/{id}"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.DELETE,
+                                        "/api/products/product-gallery/{id}"
+                                )
+                                .hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated();
                         })
