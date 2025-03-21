@@ -221,6 +221,31 @@ public class SecurityConfig {
                                         "/api/products/brands/{id}"
                                 )
                                 .hasRole("ADMIN")
+
+                                // PRODUCT ATTRIBUTE ROUTES
+                                .requestMatchers(
+                                        HttpMethod.GET, 
+                                        "/api/products/product-attribute/{id}",
+                                        "/api/products/product-attribute/type/{type}",
+                                        "/api/products/product-attribute/value/{value}",
+                                        "/api/products/product-attribute"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/products/product-attribute"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.PUT,
+                                        "/api/products/product-attribute/{id}"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.DELETE,
+                                        "/api/products/product-attribute/{id}"
+                                )
+                                .hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated();
                         })
