@@ -324,6 +324,34 @@ public class SecurityConfig {
                                         "/api/products/product-gallery/{id}"
                                 )
                                 .hasRole("ADMIN")
+
+                                // DISCOUNT CODE ROUTES
+                                .requestMatchers(
+                                        HttpMethod.GET, 
+                                        "/api/products/discount-code/{id}",
+                                        "/api/products/discount-code/code/{code}",
+                                        "/api/products/discount-code/discount-id/{discountId}",
+                                        "/api/products/discount-code/code/{code}/discount-id/{discountId}",
+                                        "/api/products/discount-code/usage-limit/{usageLimit}",
+                                        "/api/products/discount-code/used-count/{usedCount}",
+                                        "/api/products/discount-code"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/products/discount-code"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.PUT,
+                                        "/api/products/discount-code/{id}"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.DELETE,
+                                        "/api/products/discount-code/{id}"
+                                )
+                                .hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated();
                         })
