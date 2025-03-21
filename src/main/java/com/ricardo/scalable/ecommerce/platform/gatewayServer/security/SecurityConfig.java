@@ -193,6 +193,34 @@ public class SecurityConfig {
                                         "/api/products/product-sku/{id}"
                                 )
                                 .hasRole("ADMIN")
+
+                                // BRANDS ROUTES
+                                .requestMatchers(
+                                        HttpMethod.GET, 
+                                        "/api/products/brands/{id}",
+                                        "/api/products/brands/name/{name}"
+                                )
+                                .hasAnyRole("ADMIN", "USER", "SELLER")
+                                .requestMatchers(
+                                        HttpMethod.GET, 
+                                        "/api/products/brands"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.POST, 
+                                        "/api/products/brands"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.PUT, 
+                                        "/api/products/brands/{id}"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.DELETE, 
+                                        "/api/products/brands/{id}"
+                                )
+                                .hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated();
                         })
