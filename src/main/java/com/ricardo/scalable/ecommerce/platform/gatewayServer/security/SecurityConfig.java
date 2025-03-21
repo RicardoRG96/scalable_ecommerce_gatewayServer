@@ -28,6 +28,7 @@ public class SecurityConfig {
         SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 return http.authorizeHttpRequests(authz -> {
                         authz
+                                // users routes      
                                 .requestMatchers(HttpMethod.POST, "/api/users")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/users/register")
@@ -54,11 +55,74 @@ public class SecurityConfig {
                                 )
                                 .hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/api/users/{id}")
+                                // ADDRESSES ROUTES
                                 .hasRole("ADMIN")
                                 .requestMatchers(
                                         HttpMethod.GET,
-                                         "/api/products", 
-                                         "/api/products/{id}"
+                                        "/api/users/addresses/{id}",
+                                        "/api/users/addresses/user/{userId}",
+                                        "/api/users/addresses/user/{userId}/title/{title}",
+                                        "/api/users/addresses/user/{userId}/addressLine1/{addressLine1}",
+                                        "/api/users/addresses/user/{userId}/country/{country}",
+                                        "/api/users/addresses/user/{userId}/city/{city}",
+                                        "/api/users/addresses/user/{userId}/commune/{commune}",
+                                        "/api/users/addresses/user/{userId}/postalCode/{postalCode}",
+                                        "/api/users/addresses/user/{userId}/landmark/{landmark}"
+                                )
+                                .hasAnyRole("ADMIN", "USERS", "SELLER")
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/users/addresses"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/users/addresses"
+                                )
+                                .hasAnyRole("ADMIN", "USER", "SELLER")
+                                .requestMatchers(
+                                        HttpMethod.PUT,
+                                        "/api/users/addresses/{id}"
+                                )
+                                .hasAnyRole("ADMIN", "USER", "SELLER")
+                                .requestMatchers(
+                                        HttpMethod.DELETE,
+                                        "/api/users/addresses/{id}"
+                                )
+                                .hasAnyRole("ADMIN", "USER", "SELLER")
+                                // WISHLIST ROUTES
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/users/wishlist/user/{userId}"
+                                )
+                                .hasAnyRole("ADMIN", "USER")
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/users/wishlist/{id}",
+                                        "/api/users/wishlist/product-sku/{productSkuId}",
+                                        "/api/users/wishlist"
+                                )
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/users/wishlist"
+                                )
+                                .hasAnyRole("ADMIN", "USER", "SELLER")
+                                .requestMatchers(
+                                        HttpMethod.PUT,
+                                        "/api/users/wishlist/{id}"
+                                )
+                                .hasAnyRole("ADMIN", "USER", "SELLER")
+                                .requestMatchers(
+                                        HttpMethod.DELETE,
+                                        "/api/users/wishlist/{id}"
+                                )
+                                .hasAnyRole("ADMIN", "USER", "SELLER")
+                                // PRODUCTS ROUTES
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/products", 
+                                        "/api/products/{id}"
                                 )
                                 .hasAnyRole("ADMIN", "USER", "SELLER")
                                 .requestMatchers(
