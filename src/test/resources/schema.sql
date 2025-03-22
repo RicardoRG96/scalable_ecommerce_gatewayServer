@@ -1,5 +1,7 @@
 -- USERS TABLES
 
+SET NON_KEYWORDS VALUE;
+
 CREATE TABLE IF NOT EXISTS users (
 	id BIGINT AUTO_INCREMENT PRIMARY KEY,
     avatar VARCHAR(100),
@@ -44,31 +46,7 @@ CREATE TABLE IF NOT EXISTS addresses (
     FOREIGN KEY (user_id) REFERENCES users(id),
 );
 
-CREATE TABLE IF NOT EXISTS discounts (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    discount_type VARCHAR(80),
-    discount_value DECIMAL,
-    start_date TIMESTAMP,
-    end_date TIMESTAMP,
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE IF NOT EXISTS discount_codes (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    code VARCHAR(60) UNIQUE,
-    discount_id BIGINT,
-    usage_limit INTEGER,
-    used_count INTEGER DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (discount_id) REFERENCES discounts(id) ON DELETE CASCADE
-);
-
 -- PRODUCTS TABLES
-
-SET NON_KEYWORDS VALUE;
 
 CREATE TABLE IF NOT EXISTS categories (
 	id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -153,4 +131,26 @@ CREATE TABLE IF NOT EXISTS product_gallery (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (product_id) REFERENCES products(id),
     FOREIGN KEY (color_attribute_id) REFERENCES product_attributes(id)
+);
+
+CREATE TABLE IF NOT EXISTS discounts (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    discount_type VARCHAR(80),
+    discount_value DECIMAL,
+    start_date TIMESTAMP,
+    end_date TIMESTAMP,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS discount_codes (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(60) UNIQUE,
+    discount_id BIGINT,
+    usage_limit INTEGER,
+    used_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (discount_id) REFERENCES discounts(id) ON DELETE CASCADE
 );
