@@ -80,7 +80,7 @@ public class SecurityConfig {
                                         "/api/users/addresses/user/{userId}/postalCode/{postalCode}",
                                         "/api/users/addresses/user/{userId}/landmark/{landmark}"
                                 )
-                                .hasAnyRole("ADMIN", "USERS", "SELLER")
+                                .hasAnyRole("ADMIN", "USER", "SELLER")
                                 .requestMatchers(
                                         HttpMethod.GET,
                                         "/api/users/addresses"
@@ -167,6 +167,7 @@ public class SecurityConfig {
                                 .hasAnyRole("ADMIN", "USER", "SELLER")
                                 .requestMatchers(
                                         HttpMethod.GET,
+                                        "/api/products/product-sku",
                                         "/api/products/product-sku/product/{productId}",
                                         "/api/products/product-sku/sku/{sku}",
                                         "/api/products/product-sku/sku/{sku}/isActive/{isActive}",
@@ -174,8 +175,7 @@ public class SecurityConfig {
                                         "/api/products/product-sku/colorAttributeId/{colorAttributeId}",
                                         "/api/products/product-sku/productId/{productId}/sizeAttributeId/{sizeAttributeId}",
                                         "/api/products/product-sku/productId/{productId}/colorAttributeId/{colorAttributeId}",
-                                        "/api/products/product-sku/productId/{productId}/sizeAttributeId/{sizeAttributeId}/colorAttributeId/{colorAttributeId}",
-                                        "/api/products/product-sku"
+                                        "/api/products/product-sku/productId/{productId}/sizeAttributeId/{sizeAttributeId}/colorAttributeId/{colorAttributeId}"
                                 )
                                 .hasRole("ADMIN")
                                 .requestMatchers(
