@@ -19,5 +19,4 @@ public class GlobalFilter implements Filter, Ordered {
     public int getOrder() {
         return 100;
     }
-    
 }
